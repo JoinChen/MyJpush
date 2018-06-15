@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.administrator.myjpush">
+
+    <!--网络权限-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--外部存储读权限，调试工具加载本地补丁需要-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+        android:name=".SophixStubApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.stx.xhb.meituancategorydemo.widget.LoginActivity"
+            android:exported="true"></activity>
+        <activity android:name=".MessageActivity"></activity>
+        <receiver android:name=".MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.example.administrator.myjpush" />
+            </intent-filter>
+        </receiver>
+
+        <!--阿里热修复-->
+        <meta-data android:name="com.taobao.android.hotfix.IDSECRET" android:value="24931285" />
+        <meta-data android:name="com.taobao.android.hotfix.APPSECRET" android:value="564ce97cef07bca74aab4db180b5a92e" />
+        <meta-data android:name="com.taobao.android.hotfix.RSASECRET" android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/ZWKXZuvlIW762z+aj5HJV9U/ntuhznYAhl9xREZ1+xAFLVYAoqv2YU0QDs4enHl/AmthDje5S1hVGHpplUO85ccCgOTMvlvy2frHnuJNFtquk+Xk2Jnj7wFGxINyZ7y+MZwcwgZlg4PQCWu6oaOCMNuNgY/wkDe/EJTEfO6HhPfaACKx/jYspJEKC7G+czOpOWbksZBTHHBT+zoybmlDnEAlo2zr95bYfkH6uld/5SE4Q8A2yrIARK2uDxvA7YtlhthaInM7/cd350iS2IhnIuxqdeh1rtvCZ+Je4r2T+PxCw27sj4Ke03l1sEbU3XHcTpx+uoVbCh9Ve9JRHToLAgMBAAECggEAPdBSrS8yVIgdvar9ub9QiERzvN5jdLinZ7f+Lyir0QLKw8FGm2HuQ95c8yi07TIAE0MGxwu+d3ucBa+oKV1pySI0ydwzCOUZ8S7xTXNFBzywV92wS96gpPrV4LMq+NIEJTEEiE0pn7N/6LqCLn5xvmRlJCiKAlmxh2WlhmgK6X07RdokiTILxE4etPB/156ULARZ14iCLZ7IPu4MnS3jEVjWpATzl8RpWbfk0KDRMR1UGFVCkuHUAdg9VHln35Ygp6qDZ4tmycnyMK2o5o0KJD4X2fVxXFmfH/0V1d/NB+5UOpf2I/qNlIg/qHzSGs3C/xDnh0uV2EQGqlNaL6UTsQKBgQDhgcjfmY8rWDIbBDARooa0phyvNakXOZtVm019kRyo2nhF8uguIcCZb5KRgnSbhb/7piRYoCne3ArjSuYEgDRItY5kzWVV+lBEK8KmuHMp5/smVIcUHAL31KXtmgTdzpB0Ht8+juSl4VBDiBmv5bHiVYoyOf0L7xqoqP9FCE3GPQKBgQDZRs5rSFi6TEjReLI6Mj7v8mQH02LTQNNBHS72xHYCUBTDG5Y3KVQsYn7ODCxDwUTL501zcIx4bxcKNyaFw4R/8DRO2m0pxb6wFtrbzyYCAPqWEYPGIRRrqX3dOIWxCi//micWv+ryO1mBV8BPSe6CF1OJ4dCYN4rAHAyk23tN5wKBgQCm18cu6AYtI4uuwWJvKbhQX7ZJS4JXVJ/Arq6egIabx0fFOPrfZsmAvDPMxKBRkJuCLGIn0BgqctL7Z6bXHaORSAKaQfz/p7tLNLVHdKCAGMqQiWmHT1JC2moJaTLAiNwHje/N8RrqP9GKpV+b7G2372HX11+JPNaUgrSa9pHUYQKBgEm6xEsVdr5pKoCig2BKMp870oPxUGS9Z7J907T7P8xTHmiC0PuQ87ZICh2jddXcHJtQtzCILbKkh934jwLvMOQ1P5rOdiKprqaUatoSNiSR7nbEJMIz8XkDP+m0x3EnMth6l+8ZWwGt8BZ7D5AYV24fukJctWsh1dyQ6B19OR9bAoGAfDtPzRml0W8w6d89KwFV2tkeahCx+vU+AUn++jIyIGdKkQNElmC4FAEnSbypqR14ONV8qLkWziMmqojPRQ8G4VpG8DFHPnebyJaCE2vkTebnB22aej6FfaDGmmr+lRFVcFlOydz3SbHZCDzyX3gGQpO1f8XgRj/gYDMcRhvETgg="></meta-data>
+    </application>
+</manifest>
